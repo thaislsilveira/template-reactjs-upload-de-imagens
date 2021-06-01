@@ -17,7 +17,6 @@ type ImageFormData = {
   url: string;
 };
 
-
 export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
   const [imageUrl, setImageUrl] = useState('');
   const [localImageUrl, setLocalImageUrl] = useState('');
@@ -25,7 +24,7 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
 
   const formValidations = {
     image: {
-       required: 'Arquivo obrigatório',
+      required: 'Arquivo obrigatório',
       validate: {
         lessThan10MB: file =>
           file[0].size < 10485760 || 'O arquivo deve ser menor que 10MB',
@@ -53,19 +52,13 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
     }
   );
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState,
-    setError,
-    trigger,
-  } = useForm();
+  const { register, handleSubmit, reset, formState, setError, trigger } =
+    useForm();
   const { errors } = formState;
 
   const onSubmit = async (data: ImageFormData): Promise<void> => {
     try {
-    if (!imageUrl) {
+      if (!imageUrl) {
         toast({
           status: 'error',
           title: 'Imagem não adicionada',
@@ -74,17 +67,17 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
         });
 
         return;
-    }
+      }
 
       await mutation.mutateAsync(data);
 
-       toast({
+      toast({
         status: 'success',
         title: 'Imagem cadastrada',
         description: 'Sua imagem foi cadastrada com sucesso.',
       });
     } catch {
-       toast({
+      toast({
         status: 'error',
         title: 'Falha no cadastro',
         description: 'Ocorreu um erro ao tentar cadastrar a sua imagem.',
